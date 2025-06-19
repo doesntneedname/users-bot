@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    container_name: employee-service
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+      - PACHCA_API_TOKEN=${PACHCA_API_TOKEN}
+    restart: unless-stopped
