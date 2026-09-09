@@ -1,16 +1,15 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
-# Копируем package.json и package-lock.json
+# Сначала зависимости — слой кешируется, пока не поменялся package.json.
 COPY package*.json ./
+RUN npm ci --omit=dev
 
-# Устанавливаем зависимости
-RUN npm install
+COPY src ./src
 
-# Копируем исходный код
-COPY . .
-
+# Состояние (очередь приглашений + дедупликация) живёт на volume.
+ENV STATE_PATH=/data/state.json
 EXPOSE 3002
 
-CMD ["npm", "start"]
+CMD ["node", "src/index.js"]

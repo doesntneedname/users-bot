@@ -1,13 +1,15 @@
 {
-  "name": "employee-service",
-  "version": "1.0.0",
+  "name": "users-bot",
+  "version": "2.0.0",
+  "description": "Уведомления о приходе и уходе сотрудников в чат «Доступы» (Пачка)",
   "type": "module",
-  "main": "app.js",
-  "dependencies": {
-    "express": "^4.18.2",
-    "node-fetch": "^3.3.2"
-  },
+  "main": "src/index.js",
+  "engines": { "node": ">=20" },
   "scripts": {
-    "start": "node app.js"
+    "start": "node src/index.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
   }
 }

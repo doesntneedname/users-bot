@@ -4,7 +4,18 @@ services:
     container_name: employee-service
     ports:
       - "3002:3002"
+    env_file: .env
     environment:
       - NODE_ENV=production
-      - PACHCA_API_TOKEN=${PACHCA_API_TOKEN}
+      - STATE_PATH=/data/state.json
+    volumes:
+      - users-bot-data:/data
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3002/healthz"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  users-bot-data:
